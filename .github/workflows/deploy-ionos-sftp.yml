@@ -30,7 +30,7 @@ jobs:
         run: |
           test -d src
 
-          lftp -u "$IONOS_SFTP_USER","$IONOS_SFTP_PASSWORD" "sftp://$IONOS_SFTP_HOST:${IONOS_SFTP_PORT:-22}" <<'EOF'
+          lftp -u "$IONOS_SFTP_USER","$IONOS_SFTP_PASSWORD" "sftp://$IONOS_SFTP_HOST:${IONOS_SFTP_PORT:-22}" <<EOF
           set sftp:auto-confirm yes
           set net:max-retries 2
           set net:timeout 30
