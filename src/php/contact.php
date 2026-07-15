@@ -19,7 +19,8 @@ function redirect_with_status(string $status): never
     }
 
     $separator = str_contains($path, '?') ? '&' : '?';
-    header('Location: ' . $path . $separator . 'form_status=' . rawurlencode($status) . '#kontakt-form', true, 303);
+    $anchor = $path === '/partner' ? 'partner-form' : 'kontakt-form';
+    header('Location: ' . $path . $separator . 'form_status=' . rawurlencode($status) . '#' . $anchor, true, 303);
     exit;
 }
 
