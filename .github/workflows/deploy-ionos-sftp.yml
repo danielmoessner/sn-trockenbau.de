@@ -1,0 +1,37 @@
+name: Deploy to IONOS (SFTP)
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ionos-sftp
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install rsync and sshpass
+        run: sudo apt-get update && sudo apt-get install -y rsync sshpass openssh-client
+
+      - name: Deploy via rsync with checksum comparison
+        env:
+          IONOS_SFTP_HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          IONOS_SFTP_PORT: ${{ secrets.IONOS_SFTP_PORT }}
+          IONOS_SFTP_USER: ${{ secrets.IONOS_SFTP_USER }}
+          IONOS_SFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          IONOS_SFTP_REMOTE_PATH: ${{ secrets.IONOS_SFTP_REMOTE_PATH }}
+        run: |
+          test -d src
+
+          sshpass -p "$IONOS_SFTP_PASSWORD" rsync -avz --checksum --delete \
+            -e "ssh -o StrictHostKeyChecking=accept-new -p ${IONOS_SFTP_PORT:-22}" \
+            --exclude='.git*' \
+            --exclude='.DS_Store' \
+            src/ "$IONOS_SFTP_USER@$IONOS_SFTP_HOST:$IONOS_SFTP_REMOTE_PATH/"
