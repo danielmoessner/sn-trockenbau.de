@@ -1,0 +1,19 @@
+<?php
+declare(strict_types=1);
+
+return [
+    // SMTP endpoint
+    'smtp_host' => 'smtp.ionos.de',
+    'smtp_port' => 587,
+    'smtp_secure' => 'tls', // tls or ssl
+    'smtp_auth' => true,
+
+    // SMTP credentials
+    'smtp_user' => 'info@sn-trockenbau.de',
+    'smtp_pass' => 'CHANGE_ME',
+
+    // Mail envelope/header values
+    'mail_to' => 'info@sn-trockenbau.de',
+    'from_email' => 'info@sn-trockenbau.de',
+    'from_name' => 'SN Trockenbau Website',
+];

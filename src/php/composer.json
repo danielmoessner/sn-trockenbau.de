@@ -1,0 +1,9 @@
+{
+  "name": "sn-trockenbau/contact-form",
+  "description": "Contact form mail transport",
+  "type": "project",
+  "require": {
+    "php": ">=8.0",
+    "phpmailer/phpmailer": "^6.9"
+  }
+}

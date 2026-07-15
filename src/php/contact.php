@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use PHPMailer\PHPMailer\Exception as PHPMailerException;
+use PHPMailer\PHPMailer\PHPMailer;
+
 // Secure form handler with basic anti-spam protections.
 const RATE_LIMIT_WINDOW_SECONDS = 900; // 15 minutes
 const RATE_LIMIT_MAX_REQUESTS = 5;
@@ -44,6 +47,102 @@ function redirect_with_status(string $status): never
     $separator = str_contains($path, '?') ? '&' : '?';
     header('Location: ' . $path . $separator . 'form_status=' . rawurlencode($status) . '#kontakt-form', true, 303);
     exit;
+}
+
+function bool_from_mixed(mixed $value, bool $default = false): bool
+{
+    if (is_bool($value)) {
+        return $value;
+    }
+    if (is_int($value)) {
+        return $value !== 0;
+    }
+    if (!is_string($value)) {
+        return $default;
+    }
+
+    $normalized = strtolower(trim($value));
+    if ($normalized === '') {
+        return $default;
+    }
+
+    return in_array($normalized, ['1', 'true', 'yes', 'on'], true);
+}
+
+function contact_mail_config(string $host, string $defaultTo): array
+{
+    $fileConfig = [];
+    $configPath = __DIR__ . '/.smtp-config.php';
+    if (is_file($configPath)) {
+        $loaded = require $configPath;
+        if (is_array($loaded)) {
+            $fileConfig = $loaded;
+        }
+    }
+
+    $smtpHost = (string)($fileConfig['smtp_host'] ?? getenv('CONTACT_FORM_SMTP_HOST') ?: '');
+    $smtpPort = (int)($fileConfig['smtp_port'] ?? getenv('CONTACT_FORM_SMTP_PORT') ?: 587);
+    $smtpSecure = strtolower(trim((string)($fileConfig['smtp_secure'] ?? getenv('CONTACT_FORM_SMTP_SECURE') ?: 'tls')));
+    $smtpAuth = bool_from_mixed($fileConfig['smtp_auth'] ?? getenv('CONTACT_FORM_SMTP_AUTH') ?: '1', true);
+    $smtpUser = (string)($fileConfig['smtp_user'] ?? getenv('CONTACT_FORM_SMTP_USER') ?: '');
+    $smtpPass = (string)($fileConfig['smtp_pass'] ?? getenv('CONTACT_FORM_SMTP_PASS') ?: '');
+
+    $mailTo = (string)($fileConfig['mail_to'] ?? getenv('CONTACT_FORM_TO') ?: $defaultTo);
+    $fromEmail = (string)($fileConfig['from_email'] ?? getenv('CONTACT_FORM_FROM_EMAIL') ?: ('no-reply@' . $host));
+    $fromName = (string)($fileConfig['from_name'] ?? getenv('CONTACT_FORM_FROM_NAME') ?: 'SN Trockenbau Website');
+
+    return [
+        'smtp_host' => $smtpHost,
+        'smtp_port' => $smtpPort > 0 ? $smtpPort : 587,
+        'smtp_secure' => in_array($smtpSecure, ['ssl', 'tls'], true) ? $smtpSecure : 'tls',
+        'smtp_auth' => $smtpAuth,
+        'smtp_user' => $smtpUser,
+        'smtp_pass' => $smtpPass,
+        'mail_to' => $mailTo,
+        'from_email' => $fromEmail,
+        'from_name' => $fromName,
+    ];
+}
+
+function send_contact_mail(array $config, string $cleanName, string $cleanEmail, string $subject, string $body): bool
+{
+    if (!class_exists(PHPMailer::class)) {
+        return false;
+    }
+
+    if ($config['smtp_host'] === '' || $config['mail_to'] === '') {
+        return false;
+    }
+
+    try {
+        $mailer = new PHPMailer(true);
+        $mailer->CharSet = 'UTF-8';
+        $mailer->isSMTP();
+        $mailer->Host = $config['smtp_host'];
+        $mailer->Port = (int)$config['smtp_port'];
+        $mailer->SMTPAuth = (bool)$config['smtp_auth'];
+
+        if ($mailer->SMTPAuth) {
+            $mailer->Username = $config['smtp_user'];
+            $mailer->Password = $config['smtp_pass'];
+        }
+
+        if ($config['smtp_secure'] === 'ssl') {
+            $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        } else {
+            $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        }
+
+        $mailer->setFrom($config['from_email'], $config['from_name']);
+        $mailer->addAddress($config['mail_to']);
+        $mailer->addReplyTo($cleanEmail, $cleanName);
+        $mailer->Subject = $subject;
+        $mailer->Body = $body;
+
+        return $mailer->send();
+    } catch (PHPMailerException) {
+        return false;
+    }
 }
 
 function rate_limit_allow(string $ip): bool
@@ -156,12 +255,19 @@ foreach ($blockedWords as $word) {
     }
 }
 
-$to = getenv('CONTACT_FORM_TO') ?: 'info@sn-trockenbau.de';
 $subject = 'Neue Kontaktanfrage von der Website';
 
 $cleanName = str_replace(["\r", "\n"], ' ', $name);
 $cleanEmail = str_replace(["\r", "\n"], '', $email);
 $host = base_url_host();
+
+$autoloadPath = __DIR__ . '/vendor/autoload.php';
+if (!is_file($autoloadPath)) {
+    redirect_with_status('mailer_missing');
+}
+require_once $autoloadPath;
+
+$config = contact_mail_config($host, 'info@sn-trockenbau.de');
 
 $body = "Neue Anfrage über das Website-Formular\n\n"
     . "Name: {$name}\n"
@@ -172,15 +278,7 @@ $body = "Neue Anfrage über das Website-Formular\n\n"
     . "Zeit: " . date('c') . "\n\n"
     . "Nachricht:\n{$message}\n";
 
-$headers = [
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'From: SN Trockenbau Website <no-reply@' . $host . '>',
-    'Reply-To: ' . $cleanName . ' <' . $cleanEmail . '>',
-    'X-Mailer: PHP/' . phpversion(),
-];
-
-$ok = @mail($to, $subject, $body, implode("\r\n", $headers));
+$ok = send_contact_mail($config, $cleanName, $cleanEmail, $subject, $body);
 if (!$ok) {
     redirect_with_status('mail_failed');
 }
