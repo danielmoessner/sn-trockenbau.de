@@ -17,10 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install rsync and sshpass
-        run: sudo apt-get update && sudo apt-get install -y rsync sshpass openssh-client
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Deploy via rsync with checksum comparison
+      - name: Deploy via SFTP mirror
         env:
           IONOS_SFTP_HOST: ${{ secrets.IONOS_SFTP_HOST }}
           IONOS_SFTP_PORT: ${{ secrets.IONOS_SFTP_PORT }}
@@ -30,8 +30,13 @@ jobs:
         run: |
           test -d src
 
-          sshpass -p "$IONOS_SFTP_PASSWORD" rsync -avz --checksum --delete \
-            -e "ssh -o StrictHostKeyChecking=accept-new -p ${IONOS_SFTP_PORT:-22}" \
-            --exclude='.git*' \
-            --exclude='.DS_Store' \
-            src/ "$IONOS_SFTP_USER@$IONOS_SFTP_HOST:$IONOS_SFTP_REMOTE_PATH/"
+          lftp -u "$IONOS_SFTP_USER","$IONOS_SFTP_PASSWORD" "sftp://$IONOS_SFTP_HOST:${IONOS_SFTP_PORT:-22}" <<'EOF'
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 30
+          mirror --reverse --delete --verbose=2 \
+            --exclude-glob .git* \
+            --exclude-glob .DS_Store \
+            src "$IONOS_SFTP_REMOTE_PATH"
+          bye
+          EOF
