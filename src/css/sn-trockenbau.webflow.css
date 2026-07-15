@@ -1180,7 +1180,7 @@ blockquote {
 }
 
 .service-icon {
-  background-image: url('https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg');
+  background-image: url('/js/img/background-image.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: 70px;
@@ -1459,7 +1459,7 @@ blockquote {
 }
 
 .project-image.custom-9322 {
-  background-image: url('https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg');
+  background-image: url('/js/img/background-image.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2307,7 +2307,7 @@ blockquote {
 }
 
 .custom-3093 {
-  background-image: url('https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg');
+  background-image: url('/js/img/background-image.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
