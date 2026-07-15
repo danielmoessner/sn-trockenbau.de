@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Force canonical host + HTTPS
+RewriteCond %{HTTP_HOST} !^www\.sn-trockenbau\.de$ [NC,OR]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://www.sn-trockenbau.de%{REQUEST_URI} [L,R=301,NE]
