@@ -105,42 +105,91 @@ function contact_mail_config(string $host, string $defaultTo): array
 function send_contact_mail(array $config, string $cleanName, string $cleanEmail, string $subject, string $body): bool
 {
     if (!class_exists(PHPMailer::class)) {
+        error_log('[contact-form] PHPMailer class not found.');
         return false;
     }
 
     if ($config['smtp_host'] === '' || $config['mail_to'] === '') {
+        error_log('[contact-form] SMTP host or recipient is missing.');
         return false;
     }
 
-    try {
-        $mailer = new PHPMailer(true);
-        $mailer->CharSet = 'UTF-8';
-        $mailer->isSMTP();
-        $mailer->Host = $config['smtp_host'];
-        $mailer->Port = (int)$config['smtp_port'];
-        $mailer->SMTPAuth = (bool)$config['smtp_auth'];
-
-        if ($mailer->SMTPAuth) {
-            $mailer->Username = $config['smtp_user'];
-            $mailer->Password = $config['smtp_pass'];
-        }
-
-        if ($config['smtp_secure'] === 'ssl') {
-            $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        } else {
-            $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        }
-
-        $mailer->setFrom($config['from_email'], $config['from_name']);
-        $mailer->addAddress($config['mail_to']);
-        $mailer->addReplyTo($cleanEmail, $cleanName);
-        $mailer->Subject = $subject;
-        $mailer->Body = $body;
-
-        return $mailer->send();
-    } catch (PHPMailerException) {
+    if (!filter_var((string)$config['from_email'], FILTER_VALIDATE_EMAIL)) {
+        error_log('[contact-form] Invalid configured from_email.');
         return false;
     }
+
+    if (!filter_var((string)$config['mail_to'], FILTER_VALIDATE_EMAIL)) {
+        error_log('[contact-form] Invalid configured mail_to address.');
+        return false;
+    }
+
+    $primarySecure = $config['smtp_secure'] === 'ssl' ? 'ssl' : 'tls';
+    $primaryPort = (int)$config['smtp_port'];
+
+    $attempts = [
+        ['secure' => $primarySecure, 'port' => $primaryPort],
+    ];
+
+    // Fallback for hosters where only one SMTP transport is enabled.
+    if ($primarySecure === 'tls') {
+        $attempts[] = ['secure' => 'ssl', 'port' => 465];
+    } else {
+        $attempts[] = ['secure' => 'tls', 'port' => 587];
+    }
+
+    $seen = [];
+    foreach ($attempts as $attempt) {
+        $secure = $attempt['secure'];
+        $port = (int)$attempt['port'];
+        $key = $secure . ':' . $port;
+        if (isset($seen[$key])) {
+            continue;
+        }
+        $seen[$key] = true;
+
+        try {
+            $mailer = new PHPMailer(true);
+            $mailer->CharSet = 'UTF-8';
+            $mailer->isSMTP();
+            $mailer->Host = $config['smtp_host'];
+            $mailer->Port = $port;
+            $mailer->SMTPAuth = (bool)$config['smtp_auth'];
+            $mailer->SMTPAutoTLS = true;
+            $mailer->Timeout = 20;
+
+            if ($mailer->SMTPAuth) {
+                $mailer->Username = $config['smtp_user'];
+                $mailer->Password = $config['smtp_pass'];
+            }
+
+            $mailer->SMTPSecure = $secure === 'ssl'
+                ? PHPMailer::ENCRYPTION_SMTPS
+                : PHPMailer::ENCRYPTION_STARTTLS;
+
+            $mailer->setFrom($config['from_email'], $config['from_name']);
+            $mailer->addAddress($config['mail_to']);
+
+            // Reply-To is optional because form input is intentionally not strictly validated.
+            if (filter_var($cleanEmail, FILTER_VALIDATE_EMAIL)) {
+                $replyName = trim($cleanName) !== '' ? $cleanName : 'Website Kontakt';
+                $mailer->addReplyTo($cleanEmail, $replyName);
+            }
+
+            $mailer->Subject = $subject;
+            $mailer->Body = $body;
+
+            if ($mailer->send()) {
+                return true;
+            }
+
+            error_log('[contact-form] Mail send returned false on ' . $key . ': ' . $mailer->ErrorInfo);
+        } catch (PHPMailerException $e) {
+            error_log('[contact-form] Mail send failed on ' . $key . ': ' . $e->getMessage());
+        }
+    }
+
+    return false;
 }
 
 function rate_limit_allow(string $ip): bool
@@ -217,14 +266,6 @@ if ($honeypot !== '') {
 // Basic content checks to reduce low-effort spam.
 if (preg_match_all('/https?:\/\//i', $message) > 2) {
     redirect_with_status('too_many_links');
-}
-
-$blockedWords = ['viagra', 'casino', 'bitcoin', 'crypto', 'loan', 'seo service'];
-$lowerMessage = mb_strtolower($message);
-foreach ($blockedWords as $word) {
-    if (str_contains($lowerMessage, $word)) {
-        redirect_with_status('spam_content');
-    }
 }
 
 $subject = 'Neue Kontaktanfrage von der Website';
