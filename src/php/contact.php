@@ -7,8 +7,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 // Secure form handler with basic anti-spam protections.
 const RATE_LIMIT_WINDOW_SECONDS = 900; // 15 minutes
 const RATE_LIMIT_MAX_REQUESTS = 5;
-const MIN_SUBMIT_SECONDS = 3;
-const MAX_SUBMIT_SECONDS = 7200; // 2 hours
 
 function base_url_host(): string
 {
@@ -210,36 +208,10 @@ $email = trim((string)($_POST['email'] ?? ''));
 $phone = trim((string)($_POST['phone'] ?? ''));
 $message = trim((string)($_POST['message'] ?? ''));
 $honeypot = trim((string)($_POST['website'] ?? ''));
-$formStarted = (int)($_POST['form_started'] ?? 0);
 
 // Honeypot should stay empty. Return fake success to avoid bot feedback.
 if ($honeypot !== '') {
     redirect_with_status('success');
-}
-
-$now = time();
-if ($formStarted <= 0 || ($now - $formStarted) < MIN_SUBMIT_SECONDS || ($now - $formStarted) > MAX_SUBMIT_SECONDS) {
-    redirect_with_status('spam_time_check');
-}
-
-if (mb_strlen($name) < 2 || mb_strlen($name) > 120) {
-    redirect_with_status('invalid_name');
-}
-
-if ($company !== '' && mb_strlen($company) > 180) {
-    redirect_with_status('invalid_company');
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 254) {
-    redirect_with_status('invalid_email');
-}
-
-if (!preg_match('/^[0-9+()\-\/.\s]{6,40}$/', $phone)) {
-    redirect_with_status('invalid_phone');
-}
-
-if (mb_strlen($message) < 10 || mb_strlen($message) > 5000) {
-    redirect_with_status('invalid_message');
 }
 
 // Basic content checks to reduce low-effort spam.

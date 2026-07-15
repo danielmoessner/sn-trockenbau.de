@@ -37,11 +37,6 @@
   }
 
   function initForm(form) {
-    var ts = form.querySelector('input[name="form_started"]');
-    if (ts && !ts.value) {
-      ts.value = String(Math.floor(Date.now() / 1000));
-    }
-
     showStatusFromQuery(form);
   }
 
