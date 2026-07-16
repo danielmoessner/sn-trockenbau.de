@@ -1,6 +1,14 @@
 RewriteEngine On
 
+# Use local 404 page
+ErrorDocument 404 /404.html
+
 # Force canonical host + HTTPS
 RewriteCond %{HTTP_HOST} !^www\.sn-trockenbau\.de$ [NC,OR]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://www.sn-trockenbau.de%{REQUEST_URI} [L,R=301,NE]
+
+# Return proper 404 for unknown paths
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ - [L,R=404]
