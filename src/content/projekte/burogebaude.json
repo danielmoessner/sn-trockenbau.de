@@ -1,0 +1,17 @@
+{
+  "id": "burogebaude",
+  "title": "Bürogebäude",
+  "completion": "Juli 2020",
+  "partner": "",
+  "client": "",
+  "location": "Grasbrunn",
+  "description": "Ausführende Arbeiten:\nTrockenbau / Türen / Glas- und WC-Wände",
+  "images": [
+    "/webflow-assets/5c9be19f5bef78c47aa90bc9/5e9d3b2736963f3d6af9e571_SN_Keferloh_klein-2.jpg",
+    "/webflow-assets/5c9be19f5bef78c47aa90bc9/5e9d3b318e66f8378b2e2792_SN_Keferloh_klein-6.jpg"
+  ],
+  "cover": "/webflow-assets/5c9be19f5bef78c47aa90bc9/5e9d3b2736963f3d6af9e571_SN_Keferloh_klein-2.jpg",
+  "galleryOrder": 2,
+  "listOrder": 9,
+  "homeOrder": 2
+}

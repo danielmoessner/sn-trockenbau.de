@@ -1,0 +1,496 @@
+---
+import Scripts from "@/components/Scripts.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import FooterDecoration from "@/components/FooterDecoration.astro";
+import BackToTop from "@/components/BackToTop.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "@/components/ProjectCard.astro";
+const projects = (await getCollection("projekte")).filter(p => p.data.homeOrder !== null).sort((a,b) => a.data.homeOrder! - b.data.homeOrder!);
+---
+<SiteLayout htmlAttributes={{"data-wf-domain": "www.sn-trockenbau.de", "data-wf-page": "5ca4a237374efb7298444811", "data-wf-site": "5c9be19e5bef783b3aa90b95", "lang": "de"}} bodyAttributes={{"class": "custom-0000"}} title={"Willkommen bei der SN Trockenbau GmbH - Qualität ist unser Geschäft"} description={"Bei uns finden Sie alles rund um Trockenbau. Ob Sanierung, Neubau oder Umbau, bei uns sind Sie an der richtigen Adresse. Wir betreuen unsere Kunden in ganz Deutschland. Schauen Sie sich jetzt unsere Projekte an."}>
+  <Nav />
+  <div data-ix="show-go-top-on-scroll" id="Top" class="banner custom-5685">
+    <div data-delay="4000" data-animation="outin" class="banner-silder style-4 w-slider" data-autoplay="false"
+      data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0"
+      data-nav-spacing="4" data-duration="500" data-infinite="true">
+      <div class="w-slider-mask">
+        <div class="w-slide">
+          <div class="container-center lower custom-7623 w-container">
+            <div data-ix="scale-focus-up-on-slide" class="with-focus less-pading custom-7143">
+              <h1 data-ix="move-text-up-on-slide-10" class="banner-title">SN Trockenbau GmbH<br />Qualität ist unser
+                Geschäft</h1>
+              <div data-ix="move-text-up-on-slide-11" class="top-margin"><a href="/kontakt"
+                  class="button-icon arrow custom-2738 w-button">Projekt anfragen</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="w-slide">
+          <div class="container-center lower custom-7623 w-container">
+            <div data-ix="scale-focus-up-on-slide" class="with-focus less-pading custom-7143">
+              <h1 data-ix="move-text-up-on-slide-10" class="banner-title">Ihr Partner für gute Qualität<br />seit mehr
+                als 10 Jahren</h1>
+              <div data-ix="move-text-up-on-slide-11" class="top-margin"><a href="/leistungen"
+                  class="button-icon arrow custom-2738 w-button">Alle Dienstleistungen</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-big-silder other-style left custom-0234 w-slider-arrow-left">
+        <div class="w-icon-slider-left"></div>
+      </div>
+      <div class="arrow-big-silder other-style custom-0234 w-slider-arrow-right">
+        <div class="w-icon-slider-right"></div>
+      </div>
+      <div class="slide-nav w-slider-nav w-round"></div>
+    </div>
+  </div>
+  <div id="About" class="section custom-0124">
+    <div class="custom-9456 w-container">
+      <div class="top-title">
+        <div class="align-center">
+          <div class="sub-text-title">Ihr starker Partner seit mehr als 10 jahren</div>
+          <h1 class="title-top">Willkommen bei der SN Trockenbau GmbH.<br /></h1>
+        </div>
+      </div>
+      <div>
+        <div class="w-row">
+          <div class="w-col w-col-6">
+            <div class="left-more-padding">
+              <p>Für Sanierung, Neubau oder Umbau sind Sie bei uns an der richtigen Adresse. Bei uns ist Ihr Projekt in
+                guten Händen, und zwar in jeder Bauphase von der Planung bis zur schlüsselfertigen Erstellung. Besonders
+                wichtig ist uns dabei unser hoch qualifiziertes und motiviertes Mitarbeiterteam mit kurzen
+                Entscheidungswegen. <br /><br />Unser Leistungsspektrum umfasst alle im Trockenbau vorkommenden
+                Arbeiten. Dabei arbeiten wir ausschließlich mit der neusten Technik und halten alle VOB Richtlinien ein.
+                <br /><br />Wir beraten Sie gerne und machen alles rund um den Trockenbau für Sie möglich. Ihre
+                Zufriedenheit liegt uns am Herzen.</p>
+              <div class="top-margin">
+                <h4>Nedzib Semovic</h4>
+                <div class="sub-text-title">Geschäftsführer der SN Trockenbau GmbH</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-col w-col-6">
+            <div class="align-center device-margin"><img
+                src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cd80ea9cbc64f36bee7f6aa_first.jpg" width="452" alt=""
+                sizes="(max-width: 767px) 79vw, (max-width: 991px) 314px, 420px"
+                srcset="/webflow-assets/5c9be19e5bef783b3aa90b95/5cd80ea9cbc64f36bee7f6aa_first-p-500.jpeg 500w, /webflow-assets/5c9be19e5bef783b3aa90b95/5cd80ea9cbc64f36bee7f6aa_first.jpg 700w" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section no-bottom-pading add-padding custom-9312">
+    <div class="w-container">
+      <div class="top-title">
+        <div class="align-center">
+          <div class="sub-text-title">Diese Dienste übernehmen wir mit Zuversicht</div>
+          <h1 class="title-top">Unsere Leistungen</h1>
+        </div>
+      </div>
+      <div>
+        <div class="custom-7085 w-row">
+          <div class="w-col w-col-3 w-col-stack">
+            <div>
+              <div class="w-dyn-list">
+                <div role="list" class="w-dyn-items">
+                  <div role="listitem" class="w-dyn-item">
+                    <div class="top-margin more">
+                      <div class="align-center">
+                        <div
+                          style="background-image:url(&quot;/webflow-assets/5c9be19f5bef78c47aa90bc9/5ca49fa7881b0d82ac98261f_shovel.svg&quot;)"
+                          class="service-icon smaller"></div>
+                        <h4>Spachteln und Verfugen</h4>
+                        <div><a href="/leistungen/spachteln-und-verfugen" class="learn-more custom-0586">Mehr
+                            erfahren</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="listitem" class="w-dyn-item">
+                    <div class="top-margin more">
+                      <div class="align-center">
+                        <div
+                          style="background-image:url(&quot;/webflow-assets/5c9be19f5bef78c47aa90bc9/5ca4a5156fd13e01e1da40ea_flat.svg&quot;)"
+                          class="service-icon smaller"></div>
+                        <h4>Bodenbelagsarbeiten</h4>
+                        <div><a href="/leistungen/bodenbelagsarbeiten" class="learn-more custom-0586">Mehr erfahren</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="custom-4582 w-hidden-medium w-hidden-small w-hidden-tiny w-col w-col-6 w-col-stack">
+            <div class="align-center"><img
+                src="/webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a.jpg" alt=""
+                sizes="(max-width: 991px) 100vw, 460px"
+                srcset="/webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a-p-500.jpeg 500w, /webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a-p-800.jpeg 800w, /webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a-p-1080.jpeg 1080w, /webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a-p-1600.jpeg 1600w, /webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a-p-2000.jpeg 2000w, /webflow-assets/5c9be19e5bef783b3aa90b95/5ceb87aa0cbef4ce02dcdc0b_IMG_7956a.jpg 2541w" />
+            </div>
+          </div>
+          <div class="w-col w-col-3 w-col-stack">
+            <div>
+              <div class="w-dyn-list">
+                <div role="list" class="w-dyn-items">
+                  <div role="listitem" class="w-dyn-item">
+                    <div class="top-margin more">
+                      <div class="align-center">
+                        <div
+                          style="background-image:url(&quot;/webflow-assets/5c9be19f5bef78c47aa90bc9/5ca4a084881b0d67669830ce_acoustic.svg&quot;)"
+                          class="service-icon smaller"></div>
+                        <h4>Akustik und Trockenbau</h4>
+                        <div><a href="/leistungen/akustik-und-trockenbau" class="learn-more custom-0586">Mehr
+                            erfahren</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="listitem" class="w-dyn-item">
+                    <div class="top-margin more">
+                      <div class="align-center">
+                        <div
+                          style="background-image:url(&quot;/webflow-assets/5c9be19f5bef78c47aa90bc9/5ca49faf374efb75b5443e24_plan.svg&quot;)"
+                          class="service-icon smaller"></div>
+                        <h4>Projekt- und Bauleitung Trockenbau</h4>
+                        <div><a href="/leistungen/projekt-und-bauleitung-trockenbau" class="learn-more custom-0586">Mehr
+                            erfahren</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section gray less more-blue">
+    <div class="align-center">
+      <div class="sub-text-title white">Mit wem wir zusammenarbeiten</div>
+      <h1 class="title-top heading-white">Unsere Partner</h1>
+    </div>
+    <div class="w-container">
+      <div data-delay="4000" data-animation="slide" class="carousel-slider custom-3058 w-slider" data-autoplay="false"
+        data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0"
+        data-nav-spacing="4" data-duration="500" data-infinite="true">
+        <div class="w-slider-mask">
+          <div class="custom-6320 w-slide">
+            <div class="custom-3052 w-clearfix"><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc71b293f4d39b259ab5ce_mauss.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20.png"
+                  loading="lazy" width="100" sizes="(max-width: 767px) 15vw, 100px" alt=""
+                  srcset="/webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-500.png 500w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-800.png 800w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-1080.png 1080w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-1600.png 1600w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-2000.png 2000w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-2600.png 2600w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20-p-3200.png 3200w, /webflow-assets/5c9be19e5bef783b3aa90b95/67ad0e5fdf034f4ea2d8b8ea_Screenshot%202025-02-12%20at%2022-10-43%20.png 3454w" /></a><a
+                href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc71ad53a5b285f92d39b8_kraemmel.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc71a954a9c422cadd221c_imetaal.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc71a400c3d3b20f5d2e9b_hillebrand.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cd1b6eef52501a43d8502e6_zueblin.jpg" alt=""
+                  class="custom-6232" /></a></div>
+          </div>
+          <div class="custom-6320 w-slide">
+            <div class="custom-3052 w-clearfix"><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc71a0fad96cde71995004_gloeckle.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc719d54a9c41de8dd2219_borgers.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc732afad96c834599514e_baustoff.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cbc740d00c3d381605d30b8_stauch.jpg" alt=""
+                  class="custom-6232" /></a><a href="#" class="logo-wrapper white custom-3945 w-inline-block"><img
+                  src="/webflow-assets/5c9be19e5bef783b3aa90b95/5cd1b77bf52501197a8504df_saebu.jpg" alt=""
+                  class="custom-6232" /></a></div>
+          </div>
+        </div>
+        <div class="arrow-carousel left custom-8058 w-slider-arrow-left">
+          <div class="w-icon-slider-left"></div>
+        </div>
+        <div class="arrow-carousel custom-0563 w-slider-arrow-right">
+          <div class="w-icon-slider-right"></div>
+        </div>
+        <div class="slide-carousel whiter w-slider-nav w-round"></div>
+      </div>
+    </div>
+    <div class="custom-9253"><a href="/partner" class="button-icon arrow custom-2738 w-button">Partner werden</a></div>
+  </div>
+  <div class="section gray">
+    <div class="w-container">
+      <div class="top-title">
+        <div class="align-center">
+          <div class="sub-text-title">Unsere Projekte</div>
+          <h1 class="title-top">Wir verwirklichen Träume seit mehr als 10 Jahren</h1>
+        </div>
+      </div>
+    </div>
+    <div class="w-container">
+      <div class="project-margin custom-3636">
+        <div class="w-dyn-list">
+          <div role="list" class="w-dyn-items w-row">
+            {projects.map(project => <ProjectCard project={project} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section custom-3964">
+    <div class="w-container">
+      <div class="top-title">
+        <div class="align-center">
+          <div class="sub-text-title">Das Team</div>
+          <h1 class="title-top custom-9032">Ihre Ansprechpartner</h1>
+        </div>
+      </div>
+      <div>
+        <div class="w-dyn-list">
+          <div role="list" class="custom-7365 w-dyn-items w-row">
+            <div role="listitem" class="custom-7835 w-dyn-item w-col w-col-4">
+              <div class="custom-7685">
+                <div class="team-image"><img width="590" alt=""
+                    src="/webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1a7446e9c7f205cd1d0_SNTrockenbau-6b.jpg"
+                    sizes="(max-width: 479px) 87vw, (max-width: 767px) 74vw, (max-width: 991px) 242.6666717529297px, 313.3333435058594px"
+                    srcset="/webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1a7446e9c7f205cd1d0_SNTrockenbau-6b-p-500.jpg 500w, /webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1a7446e9c7f205cd1d0_SNTrockenbau-6b-p-800.jpg 800w, /webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1a7446e9c7f205cd1d0_SNTrockenbau-6b.jpg 1000w"
+                    class="team-img" /></div>
+                <div class="team-content">
+                  <div>
+                    <h4>Nedzib Semovic</h4>
+                    <div class="sub-text-title">Geschäftsführer</div>
+                    <div class="top-margin less custom-9632">
+                      <p class="custom-6735">089 320020 02</p>
+                      <p class="custom-6735"> nedzib.semovic@sn-trockenbau.de</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="listitem" class="custom-7835 w-dyn-item w-col w-col-4">
+              <div class="custom-7685">
+                <div class="team-image"><img width="590" alt=""
+                    src="/webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1b228bd5d7b8b044a19_SNTrockenbau-7b.jpg"
+                    sizes="(max-width: 479px) 87vw, (max-width: 767px) 74vw, (max-width: 991px) 242.6666717529297px, 313.3333435058594px"
+                    srcset="/webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1b228bd5d7b8b044a19_SNTrockenbau-7b-p-500.jpg 500w, /webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1b228bd5d7b8b044a19_SNTrockenbau-7b-p-800.jpg 800w, /webflow-assets/5c9be19f5bef78c47aa90bc9/63c6a1b228bd5d7b8b044a19_SNTrockenbau-7b.jpg 1000w"
+                    class="team-img" /></div>
+                <div class="team-content">
+                  <div>
+                    <h4>Sejla Matijasevic</h4>
+                    <div class="sub-text-title">Ass. der Geschäftsführung</div>
+                    <div class="top-margin less custom-9632">
+                      <p class="custom-6735">089 320020 02</p>
+                      <p class="custom-6735">sejla.matijasevic@sn-trockenbau.de</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="listitem" class="custom-7835 w-dyn-item w-col w-col-4">
+              <div class="custom-7685">
+                <div class="team-image"><img width="590" alt=""
+                    src="/images/klopsteg.jpg"
+                    class="team-img" /></div>
+                <div class="team-content">
+                  <div>
+                    <h4>Ariane Klopsteg</h4>
+                    <div class="sub-text-title">Sachbearbeiterin</div>
+                    <div class="top-margin less custom-9632">
+                      <p class="custom-6735">089/320020-02</p>
+                      <p class="custom-6735">ariane.klopsteg@sn-trockenbau.de</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="listitem" class="custom-7835 w-dyn-item w-col w-col-4">
+              <div class="custom-7685">
+                <div class="team-image"><img width="590" alt=""
+                    src="/images/gere.jpg"
+                    class="team-img" /></div>
+                <div class="team-content">
+                  <div>
+                    <h4>Andrea Gere</h4>
+                    <div class="sub-text-title">Sekretärin</div>
+                    <div class="top-margin less custom-9632">
+                      <p class="custom-6735">089 320020 02</p>
+                      <p class="custom-6735">andrea.gere@sn-trockenbau.de</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="listitem" class="custom-7835 w-dyn-item w-col w-col-4">
+              <div class="custom-7685">
+                <div class="team-image"><img width="590" alt=""
+                    src="/webflow-assets/5c9be19f5bef78c47aa90bc9/633bcfe0723954f45477da25_bild-folgt-weib.jpg"
+                    class="team-img" /></div>
+                <div class="team-content">
+                  <div>
+                    <h4>Aleyna Mercimek</h4>
+                    <div class="sub-text-title"></div>
+                    <div class="top-margin less custom-9632">
+                      <p class="custom-6735">089 320020 02</p>
+                      <p class="custom-6735">aleyna.mercimek@sn-trockenbau.de</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-container">
+      <div class="custom-2301"><img
+          src="/webflow-assets/5c9be19e5bef783b3aa90b95/63c6a1bf0accb2ed72280784_SNTrockenbau-4.jpg"
+          sizes="(max-width: 767px) 94vw, (max-width: 991px) 708px, 920px"
+          srcset="/webflow-assets/5c9be19e5bef783b3aa90b95/63c6a1bf0accb2ed72280784_SNTrockenbau-4-p-500.jpg 500w, /webflow-assets/5c9be19e5bef783b3aa90b95/63c6a1bf0accb2ed72280784_SNTrockenbau-4-p-800.jpg 800w, /webflow-assets/5c9be19e5bef783b3aa90b95/63c6a1bf0accb2ed72280784_SNTrockenbau-4.jpg 1000w"
+          alt="" /></div>
+    </div>
+    <div class="w-container">
+      <div class="custom-3921">
+        <div class="custom-3254">Wir sind 2020 offizieller Partner des Adidas Next Generation Tournament (ANGT).
+          <br />‍<a href="/ueber-uns#angt">Hier mehr erfahren</a></div>
+        <div class="custom-3254 _1"><img
+            src="/webflow-assets/5c9be19e5bef783b3aa90b95/5e218de91812fc4630593b15_basketball-sponsor-logo.opt.png"
+            height="72" alt="basketball münchen logo" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="section gray">
+    <div class="w-container">
+      <div class="top-title">
+        <div class="align-center">
+          <div class="sub-text-title">Partner Gesucht</div>
+          <h1 class="title-top">Aktuelle Projekte</h1>
+        </div>
+      </div>
+    </div>
+    <div class="w-container">
+      <div class="w-dyn-list">
+        <div role="list" class="w-dyn-items">
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Mühlenweg 12-14, 82481 Mittenwald</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Von-Kahl-Str. 39, 86971 Peiting</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Von-Kühlmann-Straße 25, 86899 Landsberg</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Angerstraße 48, 85356 Freising</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Spitalstraße 10, 85276 Pfaffenhofen</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Esplanade 10, 85049 Ingolstadt</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Weinbergstraße 29, 81241 München</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Fohrenreuther Str. 48, 95111 Rehau</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Europaring 4, 94315 Straubing</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Verdistr. 71, 81274 München</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Schwanthalerstr. 2-6, 80331 München</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Birkhahnstr., 85764 Oberschleißheim</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Wolfgang-Zimmerer-Str.1, Neufahrn</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Theresienstr. 55, 85399 Hallbergmoos</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Dammstraße, 84051 Essenbach</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Auenstr.16, 82515 Wolfratshausen</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Ottobrunner Str. 61, 81737 München</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Rosenheimer Str., 81671 München</h4>
+            </div>
+          </div>
+          <div role="listitem" class="w-dyn-item">
+            <div class="custom-0394 custom-4785">
+              <div class="custom-1923 w-embed">&#9658;&nbsp;</div>
+              <h4 class="custom-3912">Jugendstilpark Haar Q5.1 und Q5.2, Casinostr. 61, 85540 Haar -Trockenbau-</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-9253"><a href="/partner" class="button-icon arrow custom-2738 w-button">Partner werden</a></div>
+  </div>
+  <FooterDecoration />
+  <Footer /><BackToTop />
+  <Scripts />
+</SiteLayout>

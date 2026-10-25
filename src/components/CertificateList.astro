@@ -1,0 +1,5 @@
+---
+import { getCollection } from "astro:content";
+const certificates = (await getCollection("bescheinigungen")).sort((a,b) => a.data.order - b.data.order);
+---
+{certificates.map(certificate => (<div role="listitem" class="w-dyn-item"><a href={certificate.data.file} target="_blank" class="custom-0394 w-inline-block"><div class="custom-2932"></div><h4 class="custom-9384">{certificate.data.title}</h4></a></div>))}

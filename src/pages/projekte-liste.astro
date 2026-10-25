@@ -1,0 +1,12 @@
+---
+import PageBanner from "@/components/PageBanner.astro";
+import Scripts from "@/components/Scripts.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import FooterDecoration from "@/components/FooterDecoration.astro";
+import BackToTop from "@/components/BackToTop.astro";
+import { getCollection } from "astro:content";
+const projects = (await getCollection("projekte")).sort((a,b) => a.data.listOrder - b.data.listOrder);
+---
+<SiteLayout htmlAttributes={{"data-wf-domain": "www.sn-trockenbau.de", "data-wf-page": "5d15e578a9f43aa15acc76d1", "data-wf-site": "5c9be19e5bef783b3aa90b95", "lang": "de"}} bodyAttributes={{"class": "custom-0000"}} title={"Unsere Projekte - SN Trockenbau GmbH"} description={"Wir sind spezialisiert auf alles rund um den Trockenbau. Wir betreuen unsere Kunden deutschlandweit von unserem Standort in München. Werfen Sie einen Blick auf unsere Projekte und lassen Sie sich inspirieren."}><Nav /><PageBanner title={"Unsere Projekte"} href={"/kontakt"} /><div class="section gray"><div class="w-container"><div class="w-dyn-list"><div role="list" class="w-dyn-items">{projects.map(project => (<div role="listitem" class="w-dyn-item"><div class="custom-0394 custom-4785"><div class="custom-1923 w-embed">&#9658;&nbsp;</div><h4 class="custom-3912">{project.data.completion}</h4><h4 class="custom-3912">: </h4><h4 class="custom-3912">{project.data.title}</h4></div></div>))}</div></div></div><div class="custom-9253"><a href="/kontakt" class="button-icon arrow custom-2738 w-button">Projekt anfragen</a></div></div><FooterDecoration /><Footer /><BackToTop /><Scripts /></SiteLayout>

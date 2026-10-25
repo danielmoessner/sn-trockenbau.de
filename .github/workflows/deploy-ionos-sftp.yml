@@ -17,6 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
@@ -28,7 +37,7 @@ jobs:
           IONOS_SFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
           IONOS_SFTP_REMOTE_PATH: ${{ secrets.IONOS_SFTP_REMOTE_PATH }}
         run: |
-          test -d src
+          test -d dist
 
           lftp -u "$IONOS_SFTP_USER","$IONOS_SFTP_PASSWORD" "sftp://$IONOS_SFTP_HOST:${IONOS_SFTP_PORT:-22}" <<EOF
           set sftp:auto-confirm yes
@@ -37,6 +46,7 @@ jobs:
           mirror --reverse --delete --verbose=2 \
             --exclude-glob .git* \
             --exclude-glob .DS_Store \
-            src "$IONOS_SFTP_REMOTE_PATH"
+            --exclude-glob .smtp-config.php \
+            dist "$IONOS_SFTP_REMOTE_PATH"
           bye
           EOF

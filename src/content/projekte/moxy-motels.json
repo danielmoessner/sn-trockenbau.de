@@ -1,0 +1,17 @@
+{
+  "id": "moxy-motels",
+  "title": "Moxy Hotels",
+  "completion": "2015-2017",
+  "partner": "Industriebau Imetaal GmbH & Co. KG",
+  "client": "Moxy Hotels",
+  "location": "München, Eschborn, Berlin, Frankfurt",
+  "description": "Wir sind stets auf Zuverlässigkeit und Pünktlichkeit bedacht und wickeln unsere Aufträge kompetent und professionell ab. Mit mehr als 10 Jahren Erfahrung im Bereich des Trockenbaus sind wir in der Lage Fehler und Probleme frühzeitig zu erkennen und zu verhindern. Von der persönlichen Beratung bis hin zur erfolgreichen Vollendung des Projektes sind wir für Sie da. Unser wichtigstes Ziel ist es Sie als Kunden zufriedenzustellen.",
+  "images": [
+    "/webflow-assets/5c9be19f5bef78c47aa90bc9/5cd1c11ca124cc69fe4747d0_1opt.jpg",
+    "/webflow-assets/5c9be19f5bef78c47aa90bc9/5cd1c11fa0709726e1b5d881_2opt.jpg"
+  ],
+  "cover": "/webflow-assets/5c9be19f5bef78c47aa90bc9/5cd1c11ca124cc69fe4747d0_1opt.jpg",
+  "galleryOrder": 5,
+  "listOrder": 7,
+  "homeOrder": 5
+}

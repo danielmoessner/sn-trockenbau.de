@@ -1,0 +1,6 @@
+---
+import Head, { type Props as HeadProps } from "../components/Head.astro";
+interface Props extends HeadProps { htmlAttributes: Record<string, string>; bodyAttributes: Record<string, string>; }
+const { htmlAttributes, bodyAttributes, ...head } = Astro.props;
+---
+<!DOCTYPE html><html {...htmlAttributes}><head><Head {...head} /></head><body {...bodyAttributes}><slot /></body></html>

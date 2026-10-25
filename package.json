@@ -1,0 +1,46 @@
+{
+  "name": "sn-trockenbau.de",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/preserve-html-urls.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:parity": "node scripts/verify-parity.mjs",
+    "cms": "decap-server",
+    "test:cms": "npm run build && node scripts/test-cms.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielmoessner/sn-trockenbau.de.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/danielmoessner/sn-trockenbau.de/issues"
+  },
+  "homepage": "https://github.com/danielmoessner/sn-trockenbau.de#readme",
+  "dependencies": {
+    "astro": "^7.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1.64.1",
+    "decap-server": "3.11.5",
+    "parse5": "^8.0.1",
+    "pngjs": "^7.0.0",
+    "typescript": "^6.0.3"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "overrides": {
+    "@decap/cli": {
+      "zod": "^4.6.6"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface Props { project: CollectionEntry<"projekte">; }
+const { project } = Astro.props;
+---
+<div role="listitem" class="custom-1385 w-dyn-item w-col w-col-4"><a href={`/projekt/${project.id}`} data-ix="show-project-content-on-hover-2" class="project-wrapper-style-2 w-inline-block"><div class="custom-3944"><div style={`background-image:url("${project.data.cover}")`} class="project-image custom-9322"></div><div data-ix="project-overlay-first-apper" class="project-overlay-style-2 dark-color custom-7385"><div class="project-content-style-2"><div data-ix="move-up-small-title-on-project-3" class="link-icon other-color custom-5317"></div><h4 data-ix="move-up-small-title-on-project" class="small-title heading-white less-marg">{project.data.title}</h4><div data-ix="move-up-small-title-on-project-2" class="category-name">{project.data.completion}</div></div></div></div></a></div>
